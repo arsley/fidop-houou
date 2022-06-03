@@ -1,7 +1,7 @@
 class MahjongGame < ApplicationRecord
-  belongs_to :east
-  belongs_to :south
-  belongs_to :west
-  belongs_to :north
-  belongs_to :match_id
+  belongs_to :east,  nil, class_name: 'Member'
+  belongs_to :south, nil, class_name: 'Member'
+  belongs_to :west,  nil, class_name: 'Member'
+  belongs_to :north, nil, class_name: 'Member', optional: true
+  belongs_to :mahjong_match
 end
