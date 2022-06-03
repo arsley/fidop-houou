@@ -1,0 +1,2 @@
+class MahjongMatch < ApplicationRecord
+end
