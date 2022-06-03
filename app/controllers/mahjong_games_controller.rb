@@ -41,13 +41,16 @@ class MahjongGamesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_mahjong_game
-      @mahjong_game = MahjongGame.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def mahjong_game_params
-      params.require(:mahjong_game).permit(:east_id, :south_id, :west_id, :north_id, :east_score, :south_score, :west_score, :north_score, :match_id_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_mahjong_game
+    @mahjong_game = MahjongGame.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def mahjong_game_params
+    params
+      .require(:mahjong_game)
+      .permit(:east_id, :south_id, :west_id, :north_id, :east_score, :south_score, :west_score, :north_score, :mahjong_match_id)
+  end
 end
