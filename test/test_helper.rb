@@ -2,7 +2,13 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+require "database_cleaner/active_record"
+
+DatabaseCleaner.strategy = :transaction
+
 class ActiveSupport::TestCase
+  include FactoryBot::Syntax::Methods
+
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 
@@ -10,4 +16,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  parallelize_setup do |_worker|
+    DatabaseCleaner.start
+  end
+
+  parallelize_teardown do |_worker|
+    DatabaseCleaner.clean
+  end
 end

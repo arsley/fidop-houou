@@ -2,7 +2,7 @@ require "test_helper"
 
 class MahjongGamesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @mahjong_game = mahjong_games(:one)
+    @mahjong_game = create(:mahjong_game)
   end
 
   test "should get index" do
@@ -11,8 +11,22 @@ class MahjongGamesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create mahjong_game" do
+    params = {
+      mahjong_game: {
+        east_id:     @mahjong_game.east.id,
+        south_id:    @mahjong_game.south.id,
+        west_id:     @mahjong_game.west.id,
+        north_id:    @mahjong_game.north.id,
+        east_score:  Faker::Number.between(from: -10_000, to: 40_000),
+        south_score: Faker::Number.between(from: -10_000, to: 40_000),
+        west_score:  Faker::Number.between(from: -10_000, to: 40_000),
+        north_score: Faker::Number.between(from: -10_000, to: 40_000),
+        mahjong_match_id: @mahjong_game.mahjong_match.id
+      }
+    }
+
     assert_difference("MahjongGame.count") do
-      post mahjong_games_url, params: { mahjong_game: { east_id: @mahjong_game.east_id, east_score: @mahjong_game.east_score, match_id_id: @mahjong_game.match_id_id, north_id: @mahjong_game.north_id, north_score: @mahjong_game.north_score, south_id: @mahjong_game.south_id, south_score: @mahjong_game.south_score, west_id: @mahjong_game.west_id, west_score: @mahjong_game.west_score } }, as: :json
+      post mahjong_games_url, params:, as: :json
     end
 
     assert_response :created
@@ -24,7 +38,21 @@ class MahjongGamesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update mahjong_game" do
-    patch mahjong_game_url(@mahjong_game), params: { mahjong_game: { east_id: @mahjong_game.east_id, east_score: @mahjong_game.east_score, match_id_id: @mahjong_game.match_id_id, north_id: @mahjong_game.north_id, north_score: @mahjong_game.north_score, south_id: @mahjong_game.south_id, south_score: @mahjong_game.south_score, west_id: @mahjong_game.west_id, west_score: @mahjong_game.west_score } }, as: :json
+    params = {
+      mahjong_game: {
+        east_id:     @mahjong_game.east.id,
+        south_id:    @mahjong_game.south.id,
+        west_id:     @mahjong_game.west.id,
+        north_id:    @mahjong_game.north.id,
+        east_score:  Faker::Number.between(from: -10_000, to: 40_000),
+        south_score: Faker::Number.between(from: -10_000, to: 40_000),
+        west_score:  Faker::Number.between(from: -10_000, to: 40_000),
+        north_score: Faker::Number.between(from: -10_000, to: 40_000),
+        mahjong_match_id: @mahjong_game.mahjong_match.id
+      }
+    }
+
+    patch mahjong_game_url(@mahjong_game), params:, as: :json
     assert_response :success
   end
 

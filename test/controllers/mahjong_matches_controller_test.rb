@@ -2,7 +2,7 @@ require "test_helper"
 
 class MahjongMatchesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @mahjong_match = mahjong_matches(:one)
+    @mahjong_match = create(:mahjong_match)
   end
 
   test "should get index" do
