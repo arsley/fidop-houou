@@ -3,8 +3,10 @@ require_relative "../config/environment"
 require "rails/test_help"
 
 require "database_cleaner/active_record"
+require "minitest/reporters"
 
 DatabaseCleaner.strategy = :transaction
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
