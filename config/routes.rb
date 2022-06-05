@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :administrators
   resources :mahjong_jansous
   resources :mahjong_games
   resources :mahjong_matches

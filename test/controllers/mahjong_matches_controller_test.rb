@@ -24,7 +24,8 @@ class MahjongMatchesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update mahjong_match' do
-    patch mahjong_match_url(@mahjong_match), params: { mahjong_match: { name: @mahjong_match.name } }, as: :json
+    patch mahjong_match_url(@mahjong_match),
+          params: { mahjong_match: { name: @mahjong_match.name } }, as: :json
     assert_response :success
   end
 
