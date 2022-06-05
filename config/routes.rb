@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
+  post 'administrator_sessions/create'
+  delete 'administrator_sessions/destroy'
+
   resources :administrators
   resources :mahjong_jansous
   resources :mahjong_games
   resources :mahjong_matches
   resources :members
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
 end
