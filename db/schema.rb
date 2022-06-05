@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_05_030240) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_05_045323) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -47,6 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_05_030240) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "mahjong_jansou_id", null: false
+    t.index ["mahjong_jansou_id"], name: "index_mahjong_matches_on_mahjong_jansou_id"
   end
 
   create_table "members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -61,4 +63,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_05_030240) do
   add_foreign_key "mahjong_games", "members", column: "north_id"
   add_foreign_key "mahjong_games", "members", column: "south_id"
   add_foreign_key "mahjong_games", "members", column: "west_id"
+  add_foreign_key "mahjong_matches", "mahjong_jansous"
 end
