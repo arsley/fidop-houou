@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :mahjong_jansou do
-    name { "MyString" }
-    google_map_url { "MyString" }
-    address { "MyString" }
-    note { "MyString" }
+    name { Faker::Name.name }
+    google_map_url { Faker::Internet.url }
+    address { Faker::Address.full_address }
+    note { "601" }
   end
 end
