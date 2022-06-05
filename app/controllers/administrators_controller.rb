@@ -1,3 +1,5 @@
+require 'jwt'
+
 class AdministratorsController < ApplicationController
   before_action :set_administrator, only: %i[show update destroy]
 
