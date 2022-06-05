@@ -1,4 +1,4 @@
-setup: .env bundle pg dbmigrate dbseed dbmigrate-test dbseed-test
+setup: .env bundle pg dbcreate dbmigrate dbseed dbmigrate-test dbseed-test
 
 .env:
 	cp .env.sample .env
@@ -8,7 +8,7 @@ pg:
 	if [ -z "`docker ps | grep pg-houou`" ] ; then \
 	docker run --rm -d \
 	--name pg-houou \
-	-v `pwd`/tmp/pgdata:/var/lib/postgres/data \
+	-v `pwd`/tmp/pgdata:/var/lib/postgresql/data \
 	-p 5432:5432 \
 	--env-file .env \
 	postgres:latest; fi
@@ -20,6 +20,10 @@ wait-for-db:
 .PHONY: bundle
 bundle:
 	bundle install
+
+.PHONY: dbcreate
+dbcreate:
+	bundle exec rails db:create
 
 .PHONY: dbmigrate
 dbmigrate: wait-for-db
