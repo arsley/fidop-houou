@@ -27,7 +27,8 @@ class AdministratorSessionsController < ApplicationController
       value: jwt,
       expires: 1.week,
       secure: true,
-      httponly: true
+      httponly: true,
+      same_site: :none
     }
   end
 
