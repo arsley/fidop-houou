@@ -1,52 +1,52 @@
-require "test_helper"
+require 'test_helper'
 
 class MahjongGamesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @mahjong_game = create(:mahjong_game)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get mahjong_games_url, as: :json
     assert_response :success
   end
 
-  test "should create mahjong_game" do
+  test 'should create mahjong_game' do
     params = {
       mahjong_game: {
-        east_id:     @mahjong_game.east.id,
-        south_id:    @mahjong_game.south.id,
-        west_id:     @mahjong_game.west.id,
-        north_id:    @mahjong_game.north.id,
-        east_score:  Faker::Number.between(from: -10_000, to: 40_000),
+        east_id: @mahjong_game.east.id,
+        south_id: @mahjong_game.south.id,
+        west_id: @mahjong_game.west.id,
+        north_id: @mahjong_game.north.id,
+        east_score: Faker::Number.between(from: -10_000, to: 40_000),
         south_score: Faker::Number.between(from: -10_000, to: 40_000),
-        west_score:  Faker::Number.between(from: -10_000, to: 40_000),
+        west_score: Faker::Number.between(from: -10_000, to: 40_000),
         north_score: Faker::Number.between(from: -10_000, to: 40_000),
         mahjong_match_id: @mahjong_game.mahjong_match.id
       }
     }
 
-    assert_difference("MahjongGame.count") do
+    assert_difference('MahjongGame.count') do
       post mahjong_games_url, params:, as: :json
     end
 
     assert_response :created
   end
 
-  test "should show mahjong_game" do
+  test 'should show mahjong_game' do
     get mahjong_game_url(@mahjong_game), as: :json
     assert_response :success
   end
 
-  test "should update mahjong_game" do
+  test 'should update mahjong_game' do
     params = {
       mahjong_game: {
-        east_id:     @mahjong_game.east.id,
-        south_id:    @mahjong_game.south.id,
-        west_id:     @mahjong_game.west.id,
-        north_id:    @mahjong_game.north.id,
-        east_score:  Faker::Number.between(from: -10_000, to: 40_000),
+        east_id: @mahjong_game.east.id,
+        south_id: @mahjong_game.south.id,
+        west_id: @mahjong_game.west.id,
+        north_id: @mahjong_game.north.id,
+        east_score: Faker::Number.between(from: -10_000, to: 40_000),
         south_score: Faker::Number.between(from: -10_000, to: 40_000),
-        west_score:  Faker::Number.between(from: -10_000, to: 40_000),
+        west_score: Faker::Number.between(from: -10_000, to: 40_000),
         north_score: Faker::Number.between(from: -10_000, to: 40_000),
         mahjong_match_id: @mahjong_game.mahjong_match.id
       }
@@ -56,8 +56,8 @@ class MahjongGamesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should destroy mahjong_game" do
-    assert_difference("MahjongGame.count", -1) do
+  test 'should destroy mahjong_game' do
+    assert_difference('MahjongGame.count', -1) do
       delete mahjong_game_url(@mahjong_game), as: :json
     end
 

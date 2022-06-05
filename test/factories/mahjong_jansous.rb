@@ -3,6 +3,6 @@ FactoryBot.define do
     name { Faker::Name.name }
     google_map_url { Faker::Internet.url }
     address { Faker::Address.full_address }
-    note { "601" }
+    note { '601' }
   end
 end

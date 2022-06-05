@@ -1,1 +1,1 @@
-json.partial! "mahjong_jansous/mahjong_jansou", mahjong_jansou: @mahjong_jansou
+json.partial! 'mahjong_jansous/mahjong_jansou', mahjong_jansou: @mahjong_jansou

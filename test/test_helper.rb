@@ -1,9 +1,9 @@
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
+require 'rails/test_help'
 
-require "database_cleaner/active_record"
-require "minitest/reporters"
+require 'database_cleaner/active_record'
+require 'minitest/reporters'
 
 DatabaseCleaner.strategy = :transaction
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new

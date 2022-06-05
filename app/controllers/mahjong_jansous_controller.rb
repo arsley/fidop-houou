@@ -1,5 +1,5 @@
 class MahjongJansousController < ApplicationController
-  before_action :set_mahjong_jansou, only: %i[ show update destroy ]
+  before_action :set_mahjong_jansou, only: %i[show update destroy]
 
   # GET /mahjong_jansous
   # GET /mahjong_jansous.json
@@ -9,8 +9,7 @@ class MahjongJansousController < ApplicationController
 
   # GET /mahjong_jansous/1
   # GET /mahjong_jansous/1.json
-  def show
-  end
+  def show; end
 
   # POST /mahjong_jansous
   # POST /mahjong_jansous.json
@@ -41,13 +40,14 @@ class MahjongJansousController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_mahjong_jansou
-      @mahjong_jansou = MahjongJansou.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def mahjong_jansou_params
-      params.require(:mahjong_jansou).permit(:name, :google_map_url, :address, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_mahjong_jansou
+    @mahjong_jansou = MahjongJansou.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def mahjong_jansou_params
+    params.require(:mahjong_jansou).permit(:name, :google_map_url, :address, :note)
+  end
 end

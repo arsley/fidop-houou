@@ -15,10 +15,10 @@ ActiveRecord::Base.transaction do
     south: members[1],
     west: members[2],
     north: members[3],
-    east_score: 10000,
-    south_score: 10000,
-    west_score: 10000,
-    north_score: 10000,
+    east_score: 10_000,
+    south_score: 10_000,
+    west_score: 10_000,
+    north_score: 10_000,
     mahjong_match: match
   )
 
@@ -34,9 +34,9 @@ ActiveRecord::Base.transaction do
     south: members[1],
     west: members[2],
     north: nil,
-    east_score: 10000,
-    south_score: 10000,
-    west_score: 10000,
+    east_score: 10_000,
+    south_score: 10_000,
+    west_score: 10_000,
     north_score: nil,
     mahjong_match: match
   )

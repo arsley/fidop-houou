@@ -1,3 +1,3 @@
 class MahjongMatch < ApplicationRecord
-  has_many :mahjong_games
+  has_many :mahjong_games, dependent: :destroy
 end

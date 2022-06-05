@@ -1,5 +1,5 @@
 class MahjongGamesController < ApplicationController
-  before_action :set_mahjong_game, only: %i[ show update destroy ]
+  before_action :set_mahjong_game, only: %i[show update destroy]
 
   # GET /mahjong_games
   # GET /mahjong_games.json
@@ -9,8 +9,7 @@ class MahjongGamesController < ApplicationController
 
   # GET /mahjong_games/1
   # GET /mahjong_games/1.json
-  def show
-  end
+  def show; end
 
   # POST /mahjong_games
   # POST /mahjong_games.json

@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_action :set_member, only: %i[ show update destroy ]
+  before_action :set_member, only: %i[show update destroy]
 
   # GET /members
   # GET /members.json
@@ -9,8 +9,7 @@ class MembersController < ApplicationController
 
   # GET /members/1
   # GET /members/1.json
-  def show
-  end
+  def show; end
 
   # POST /members
   # POST /members.json
