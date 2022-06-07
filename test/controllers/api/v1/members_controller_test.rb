@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class MembersControllerTest < ActionDispatch::IntegrationTest
+class Api::V1::MembersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @member = create(:member)
   end
 
   test 'should get index' do
-    get members_url, as: :json
+    get api_v1_members_url, as: :json
     assert_response :success
   end
 
@@ -18,14 +18,14 @@ class MembersControllerTest < ActionDispatch::IntegrationTest
       }
     }
     assert_difference('Member.count') do
-      post members_url, params:, as: :json
+      post api_v1_members_url, params:, as: :json
     end
 
     assert_response :created
   end
 
   test 'should show member' do
-    get member_url(@member), as: :json
+    get api_v1_member_url(@member), as: :json
     assert_response :success
   end
 
@@ -36,13 +36,13 @@ class MembersControllerTest < ActionDispatch::IntegrationTest
         name: 'updated name'
       }
     }
-    patch member_url(@member), params:, as: :json
+    patch api_v1_member_url(@member), params:, as: :json
     assert_response :success
   end
 
   test 'should destroy member' do
     assert_difference('Member.count', -1) do
-      delete member_url(@member), as: :json
+      delete api_v1_member_url(@member), as: :json
     end
 
     assert_response :no_content

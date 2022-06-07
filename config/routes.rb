@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
-  post 'administrator_sessions/create'
-  delete 'administrator_sessions/destroy'
+  namespace :api do
+    namespace :v1 do
+      post 'administrator_sessions/create'
+      delete 'administrator_sessions/destroy'
 
-  resources :administrators
-  resources :mahjong_jansous
-  resources :mahjong_games
-  resources :mahjong_matches
-  resources :members
+      resources :administrators
+      resources :mahjong_jansous
+      resources :mahjong_games
+      resources :mahjong_matches
+      resources :members
+    end
+  end
 end

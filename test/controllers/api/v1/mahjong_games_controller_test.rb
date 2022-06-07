@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class MahjongGamesControllerTest < ActionDispatch::IntegrationTest
+class Api::V1::MahjongGamesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @mahjong_game = create(:mahjong_game)
   end
 
   test 'should get index' do
-    get mahjong_games_url, as: :json
+    get api_v1_mahjong_games_url, as: :json
     assert_response :success
   end
 
@@ -26,14 +26,14 @@ class MahjongGamesControllerTest < ActionDispatch::IntegrationTest
     }
 
     assert_difference('MahjongGame.count') do
-      post mahjong_games_url, params:, as: :json
+      post api_v1_mahjong_games_url, params:, as: :json
     end
 
     assert_response :created
   end
 
   test 'should show mahjong_game' do
-    get mahjong_game_url(@mahjong_game), as: :json
+    get api_v1_mahjong_game_url(@mahjong_game), as: :json
     assert_response :success
   end
 
@@ -52,13 +52,13 @@ class MahjongGamesControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    patch mahjong_game_url(@mahjong_game), params:, as: :json
+    patch api_v1_mahjong_game_url(@mahjong_game), params:, as: :json
     assert_response :success
   end
 
   test 'should destroy mahjong_game' do
     assert_difference('MahjongGame.count', -1) do
-      delete mahjong_game_url(@mahjong_game), as: :json
+      delete api_v1_mahjong_game_url(@mahjong_game), as: :json
     end
 
     assert_response :no_content

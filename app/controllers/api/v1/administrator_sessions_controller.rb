@@ -1,6 +1,6 @@
 require 'jwt'
 
-class AdministratorSessionsController < ApplicationController
+class Api::V1::AdministratorSessionsController < ApplicationController
   skip_before_action :require_administrator_session
 
   def create

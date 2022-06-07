@@ -1,4 +1,4 @@
-class MahjongMatchesController < ApplicationController
+class Api::V1::MahjongMatchesController < ApplicationController
   before_action :set_mahjong_match, only: %i[show update destroy]
 
   # GET /mahjong_matches
