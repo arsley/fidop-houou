@@ -28,7 +28,8 @@ class Api::V1::AdministratorSessionsController < ApplicationController
       expires: 1.week,
       secure: true,
       httponly: true,
-      same_site: :none
+      same_site: :none,
+      domain: ENV.fetch('FIDOP_HOUOU_URL')
     }
   end
 

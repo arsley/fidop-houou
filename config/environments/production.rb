@@ -66,7 +66,7 @@ Rails.application.configure do
   # CORS protection
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins ENV['FIDOP_YAKUMAN_URL']
+      origins ENV.fetch('FIDOP_YAKUMAN_URL')
       resource '*', headers: :any, methods: %i[get post put patch delete options head], credentials: true
     end
   end
