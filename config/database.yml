@@ -18,8 +18,8 @@ test:
   database: houou_test
 
 production:
-  <<: *default
-  database: <%= ENV["DB_NAME"] %>
-  username: <%= ENV["DB_USER"] %>
-  password: <%= ENV["DB_PASS"] %>
-  host: <%= ENV["DB_HOST"] %>
+  adapter: postgresql
+  encoding: unicode
+  url: <%= ENV.fetch('DATABASE_URL') %>
+  pool: 5
+  timeout: 5000
