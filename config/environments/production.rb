@@ -63,6 +63,14 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  # CORS protection
+  config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins ENV['FIDOP_YAKUMAN_URL']
+      resource '*', headers: :any, methods: %i[get post put patch delete options head], credentials: true
+    end
+  end
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
