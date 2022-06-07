@@ -49,7 +49,7 @@ app/controllers
 JSON 形式でのレスポンスの表現に関する変更はここ:
 
 ```
-app/views
+app/views/api/v1/
 ├── administrators
 ├── mahjong_games
 ├── mahjong_jansous
