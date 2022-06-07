@@ -5,9 +5,7 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
-  host: localhost
+  url: <%= ENV.fetch('DATABASE_URL') %>
 
 development:
   <<: *default
@@ -20,6 +18,5 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  url: <%= ENV.fetch('DATABASE_URL') %>
   pool: 5
   timeout: 5000
