@@ -15,3 +15,8 @@ Layout/LineLength:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - 'app/controllers/**/*'
+    - 'test/**/*'
