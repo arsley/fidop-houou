@@ -6,6 +6,7 @@ AllCops:
     - 'config/**/*'
     - 'bin/*'
     - 'Gemfile'
+  NewCops: enable
 
 Style/ClassAndModuleChildren:
   Enabled: false
