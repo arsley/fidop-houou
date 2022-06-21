@@ -12,8 +12,8 @@ ActiveRecord::Base.transaction do
   m5 = Member.create!(name: 'Member5')
   m6 = Member.create!(name: 'Member6')
 
-  j1 = MahjongJansou.create!(name: 'Fujioka sou')
-  j2 = MahjongJansou.create!(name: 'Kimura sou')
+  j1 = MahjongJansou.create!(name: 'Member1 sou')
+  j2 = MahjongJansou.create!(name: 'Member2 sou')
 
   match = MahjongMatch.create!(name: '5/6', mahjong_jansou: j1)
   MahjongGame.create!(east: m1, south: m3, west: m5, north: m4, east_score: 36_600, south_score: 2600,
@@ -56,4 +56,8 @@ ActiveRecord::Base.transaction do
                       west_score: 36_000, north_score: nil, mahjong_match: match)
   MahjongGame.create!(east: m3, south: m5, west: m1, north: nil, east_score: 93_000, south_score: 3000,
                       west_score: 9000, north_score: nil, mahjong_match: match)
+
+  at = AccessToken.create!
+  puts 'token on development:'
+  puts "\t#{at.to_jwt}"
 end
