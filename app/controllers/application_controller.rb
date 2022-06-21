@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-  include ActionController::Cookies
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
   before_action :authenticate_by_token
