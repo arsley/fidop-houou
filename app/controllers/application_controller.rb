@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_by_token
-    return if authenticate_with_http_token { |token, _| AccessToken.valid?(token) }
+    return if authenticate_with_http_token { |token, _| AccessToken.authenticate_by(token) }
 
     head :unauthorized
   end
