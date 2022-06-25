@@ -10,7 +10,7 @@ class Api::V1::AuthController < ApplicationController
     administrator = Administrator.find_by(userid: auth_params[:userid])
     administrator.create_access_token unless administrator.access_token
 
-    render json: { token: administrator.access_token.to_jwt }, status: :created
+    render json: { id: administrator.id, token: administrator.access_token.to_jwt }, status: :created
   end
 
   def destroy
