@@ -1,4 +1,4 @@
-setup: .env bundle pg dbcreate dbmigrate dbseed dbmigrate-test dbseed-test
+setup: .env bundle pg dbdev dbtest
 
 .env:
 	cp .env.sample .env
@@ -21,26 +21,13 @@ wait-for-db:
 bundle:
 	bundle install
 
-.PHONY: dbcreate
-dbcreate:
-	bundle exec rails db:create
-	RAILS_ENV=test bundle exec rails db:create
+.PHONY: dbdev
+dbdev:
+	bundle exec rails db:reset
 
-.PHONY: dbmigrate
-dbmigrate: wait-for-db
-	bundle exec rails db:migrate
-
-.PHONY: dbmigrate-test
-dbmigrate-test: wait-for-db
-	RAILS_ENV=test bundle exec rails db:migrate
-
-.PHONY: dbseed
-dbseed: wait-for-db
-	bundle exec rails db:seed
-
-.PHONY: dbseed-test
-dbseed-test: wait-for-db
-	RAILS_ENV=test bundle exec rails db:seed
+.PHONY: dbtest
+dbtest:
+	RAILS_ENV=test bundle exec rails db:reset
 
 .PHONY: up
 up: pg

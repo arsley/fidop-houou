@@ -56,8 +56,4 @@ ActiveRecord::Base.transaction do
                       west_score: 36_000, north_score: nil, mahjong_match: match)
   MahjongGame.create!(east: m3, south: m5, west: m1, north: nil, east_score: 93_000, south_score: 3000,
                       west_score: 9000, north_score: nil, mahjong_match: match)
-
-  at = AccessToken.create!
-  puts 'token on development:'
-  puts "\t#{at.to_jwt}"
 end
