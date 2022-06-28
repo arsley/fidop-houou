@@ -24,6 +24,7 @@ bundle:
 .PHONY: dbcreate
 dbcreate:
 	bundle exec rails db:create
+	RAILS_ENV=test bundle exec rails db:create
 
 .PHONY: dbmigrate
 dbmigrate: wait-for-db
