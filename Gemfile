@@ -22,4 +22,5 @@ group :development, :test do
   gem 'minitest-reporters'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+  gem 'annotate'
 end
