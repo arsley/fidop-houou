@@ -8,9 +8,9 @@ Rails.application.routes.draw do
       delete 'auth/destroy'
 
       resources :administrators
-      resources :mahjong_jansous
-      resources :mahjong_games
-      resources :mahjong_matches
+      resources :jansous
+      resources :games
+      resources :matches
       resources :members
     end
   end
