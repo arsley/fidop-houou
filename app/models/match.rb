@@ -16,7 +16,7 @@
 #
 #  fk_rails_...  (mahjong_jansou_id => mahjong_jansous.id)
 #
-class MahjongMatch < ApplicationRecord
-  has_many :mahjong_games, dependent: :destroy
-  belongs_to :mahjong_jansou
+class Match < ApplicationRecord
+  has_many :games, dependent: :destroy
+  belongs_to :jansou
 end

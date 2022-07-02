@@ -31,10 +31,10 @@
 #  fk_rails_...  (south_id => members.id)
 #  fk_rails_...  (west_id => members.id)
 #
-class MahjongGame < ApplicationRecord
+class Game < ApplicationRecord
   belongs_to :east,  nil, class_name: 'Member'
   belongs_to :south, nil, class_name: 'Member'
   belongs_to :west,  nil, class_name: 'Member'
   belongs_to :north, nil, class_name: 'Member', optional: true
-  belongs_to :mahjong_match
+  belongs_to :match
 end

@@ -10,5 +10,5 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
-class MahjongJansou < ApplicationRecord
+class Jansou < ApplicationRecord
 end
