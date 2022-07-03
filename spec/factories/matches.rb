@@ -17,7 +17,7 @@
 #  fk_rails_...  (mahjong_jansou_id => mahjong_jansous.id)
 #
 FactoryBot.define do
-  factory :mahjong_match do
+  factory :match do
     name { Faker::Restaurant.name }
   end
 end

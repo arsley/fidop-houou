@@ -32,7 +32,7 @@
 #  fk_rails_...  (west_id => members.id)
 #
 FactoryBot.define do
-  factory :mahjong_game do
+  factory :game do
     east  { association :member }
     south { association :member }
     west  { association :member }

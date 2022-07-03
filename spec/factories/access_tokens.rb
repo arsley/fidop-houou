@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :access_token do
-    token { "MyString" }
-    auth_token { "MyString" }
+    token
+    auth_token
   end
 end

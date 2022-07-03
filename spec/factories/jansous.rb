@@ -11,7 +11,7 @@
 #  updated_at     :datetime         not null
 #
 FactoryBot.define do
-  factory :mahjong_jansou do
+  factory :jansou do
     name { Faker::Name.name }
     google_map_url { Faker::Internet.url }
     address { Faker::Address.full_address }
