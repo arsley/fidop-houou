@@ -17,7 +17,7 @@ class Api::V1::MatchesController < ApplicationController
     @match = Match.new(match_params)
 
     if @match.save
-      render :show, status: :created, location: @match
+      render :show, status: :created, location: api_v1_match_url(@match)
     else
       render json: @match.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::MatchesController < ApplicationController
   # PATCH/PUT /matches/1.json
   def update
     if @match.update(match_params)
-      render :show, status: :ok, location: @match
+      render :show, status: :ok, location: api_v1_match_url(@match)
     else
       render json: @match.errors, status: :unprocessable_entity
     end
@@ -48,6 +48,6 @@ class Api::V1::MatchesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def match_params
-    params.require(:match).permit(:name)
+    params.permit(:name, :jansou_id)
   end
 end

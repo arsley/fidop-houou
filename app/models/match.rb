@@ -19,4 +19,6 @@
 class Match < ApplicationRecord
   has_many :games, dependent: :destroy
   belongs_to :jansou
+
+  validates :name, presence: true
 end

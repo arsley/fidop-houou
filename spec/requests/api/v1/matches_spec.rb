@@ -51,7 +51,7 @@ RSpec.describe 'Api::V1::Matches', type: :request do
     let!(:match) { create(:match) }
     let(:match_id) { match.id }
 
-    subject { get api_v1_jansou_url(match_id), headers: }
+    subject { get api_v1_match_url(match_id), headers: }
 
     context 'Correct - 200' do
       context 'when match exists' do
@@ -85,9 +85,9 @@ RSpec.describe 'Api::V1::Matches', type: :request do
   describe 'POST /api/v1/matches' do
     let(:name) { Faker::Name.name }
     let(:jansou) { create(:jansou) }
-    let(:jansou_id) { janou.id }
+    let(:jansou_id) { jansou.id }
     let(:params) do
-      { name:, jansou: }.to_json
+      { name:, jansou_id: }.to_json
     end
 
     subject { post api_v1_matches_url, headers:, params: }
@@ -97,8 +97,8 @@ RSpec.describe 'Api::V1::Matches', type: :request do
         it 'returns created resource' do
           subject
 
-          expect(json[:name]).to eq(match.name)
-          expect(json[:jansou_id]).to eq(match.jansou_id)
+          expect(json[:name]).to eq(name)
+          expect(json[:jansou_id]).to eq(jansou_id)
         end
 
         it { is_expected_response.to have_http_status(201) }
@@ -133,12 +133,12 @@ RSpec.describe 'Api::V1::Matches', type: :request do
 
     let(:name) { Faker::Name.name }
     let(:jansou) { create(:jansou) }
-    let(:jansou_id) { janou.id }
+    let(:jansou_id) { jansou.id }
     let(:params) do
-      { name:, jansou: }.to_json
+      { name:, jansou_id: }.to_json
     end
 
-    subject { put api_v1_jansou_url(match_id), headers:, params: }
+    subject { put api_v1_match_url(match_id), headers:, params: }
 
     context 'Correct - 200' do
       context 'when request with valid params' do
@@ -146,9 +146,7 @@ RSpec.describe 'Api::V1::Matches', type: :request do
           subject
 
           expect(json[:name]).to eq(name)
-          expect(json[:google_map_url]).to eq(google_map_url)
-          expect(json[:address]).to eq(address)
-          expect(json[:note]).to eq(note)
+          expect(json[:jansou_id]).to eq(jansou_id)
         end
 
         it { is_expected_response.to have_http_status(200) }
@@ -181,7 +179,7 @@ RSpec.describe 'Api::V1::Matches', type: :request do
     let!(:match) { create(:match) }
     let(:match_id) { match.id }
 
-    subject { delete api_v1_jansou_url(match_id), headers: }
+    subject { delete api_v1_match_url(match_id), headers: }
 
     context 'Correct - 200' do
       context 'when specified match exists' do
