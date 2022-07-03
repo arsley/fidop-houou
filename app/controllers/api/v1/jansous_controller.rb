@@ -17,7 +17,7 @@ class Api::V1::JansousController < ApplicationController
     @jansou = Jansou.new(jansou_params)
 
     if @jansou.save
-      render :show, status: :created, location: @jansou
+      render :show, status: :created, location: api_v1_jansou_url(@jansou)
     else
       render json: @jansou.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::JansousController < ApplicationController
   # PATCH/PUT /jansous/1.json
   def update
     if @jansou.update(jansou_params)
-      render :show, status: :ok, location: @jansou
+      render :show, status: :ok, location: api_v1_jansou_url(@jansou)
     else
       render json: @jansou.errors, status: :unprocessable_entity
     end
@@ -37,6 +37,7 @@ class Api::V1::JansousController < ApplicationController
   # DELETE /jansous/1.json
   def destroy
     @jansou.destroy
+    head :no_content
   end
 
   private

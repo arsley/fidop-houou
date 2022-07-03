@@ -25,7 +25,7 @@ RSpec.describe 'Api::V1::Jansous', type: :request do
 
       context 'when 10 jansous exist' do
         let(:jansous_count) { 10 }
-        let!(:jansous) { create_list(:game, jansous_count) }
+        let!(:jansous) { create_list(:jansou, jansous_count) }
 
         it 'returns response that array of jansous' do
           subject
@@ -76,8 +76,8 @@ RSpec.describe 'Api::V1::Jansous', type: :request do
     end
 
     context 'Illegal - 404' do
-      context 'when specified game does not exist' do
-        let(:game_id) { -1 }
+      context 'when specified jansou does not exist' do
+        let(:jansou_id) { -1 }
 
         it { is_expected_response.to have_http_status(404) }
       end

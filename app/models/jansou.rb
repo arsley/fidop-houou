@@ -11,4 +11,5 @@
 #  updated_at     :datetime         not null
 #
 class Jansou < ApplicationRecord
+  validates :name, presence: true
 end
