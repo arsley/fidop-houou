@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: mahjong_jansous
+# Table name: jansous
 #
 #  id             :uuid             not null, primary key
 #  address        :string

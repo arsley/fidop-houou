@@ -1,20 +1,20 @@
 # == Schema Information
 #
-# Table name: mahjong_matches
+# Table name: matches
 #
-#  id                :bigint           not null, primary key
-#  name              :string
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  mahjong_jansou_id :uuid             not null
+#  id         :bigint           not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  jansou_id  :uuid             not null
 #
 # Indexes
 #
-#  index_mahjong_matches_on_mahjong_jansou_id  (mahjong_jansou_id)
+#  index_matches_on_jansou_id  (jansou_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (mahjong_jansou_id => mahjong_jansous.id)
+#  fk_rails_...  (jansou_id => jansous.id)
 #
 class Match < ApplicationRecord
   has_many :games, dependent: :destroy
