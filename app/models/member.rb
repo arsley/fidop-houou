@@ -10,4 +10,7 @@
 #
 class Member < ApplicationRecord
   self.implicit_order_column = 'created_at'
+
+  validates :name, presence: true
+  # validates :discord_id, numericality: { only_integer: true }, allow_nil: true
 end
