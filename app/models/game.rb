@@ -37,4 +37,16 @@ class Game < ApplicationRecord
   belongs_to :west,  nil, class_name: 'Member'
   belongs_to :north, nil, class_name: 'Member', optional: true
   belongs_to :match
+
+  validates :east_id,  presence: true
+  validates :south_id, presence: true
+  validates :west_id,  presence: true
+
+  validates :east_score,  presence: true
+  validates :east_score,  numericality: { only_integer: true }
+  validates :south_score, presence: true
+  validates :south_score, numericality: { only_integer: true }
+  validates :west_score,  presence: true
+  validates :west_score,  numericality: { only_integer: true }
+  validates :north_score, numericality: { only_integer: true }, if: -> { north.present? }
 end

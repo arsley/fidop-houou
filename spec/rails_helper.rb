@@ -45,6 +45,7 @@ RSpec.configure do |config|
 
   config.include ResponseParser, type: :request
   config.include IsExpectedBlock, type: :request
+  config.include IsExpectedResponse, type: :request
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

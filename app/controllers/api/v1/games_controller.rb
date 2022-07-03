@@ -17,7 +17,7 @@ class Api::V1::GamesController < ApplicationController
     @game = Game.new(game_params)
 
     if @game.save
-      render :show, status: :created, location: @game
+      render :show, status: :created, location: api_v1_game_url(@game)
     else
       render json: @game.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::GamesController < ApplicationController
   # PATCH/PUT /games/1.json
   def update
     if @game.update(game_params)
-      render :show, status: :ok, location: @game
+      render :show, status: :ok, location: api_v1_game_url(@game)
     else
       render json: @game.errors, status: :unprocessable_entity
     end
@@ -37,6 +37,7 @@ class Api::V1::GamesController < ApplicationController
   # DELETE /games/1.json
   def destroy
     @game.destroy
+    head :no_content
   end
 
   private
@@ -49,7 +50,16 @@ class Api::V1::GamesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def game_params
     params
-      .require(:game)
-      .permit(:east_id, :south_id, :west_id, :north_id, :east_score, :south_score, :west_score, :north_score, :mahjong_match_id)
+      .permit(
+        :east_id,
+        :south_id,
+        :west_id,
+        :north_id,
+        :east_score,
+        :south_score,
+        :west_score,
+        :north_score,
+        :match_id
+      )
   end
 end

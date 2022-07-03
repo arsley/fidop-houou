@@ -1,7 +1,13 @@
 RSpec.describe 'Api::V1::Games', type: :request do
   let!(:administrator) { create(:administrator) }
-  let(:token) { administrator.access_token.create!.to_jwt }
-  let(:headers) { { Authorization: "Bearer #{token}" } }
+  let!(:token) { administrator.create_access_token!.to_jwt }
+  let(:headers) do
+    {
+      Authorization: "Bearer #{token}",
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    }
+  end
 
   describe 'GET /api/v1/games' do
     subject { get api_v1_games_url, headers: }
@@ -14,7 +20,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
           expect(json.length).to eq(0)
         end
 
-        it { is_expected_block.to have_http_status(200) }
+        it { is_expected_response.to have_http_status(200) }
       end
 
       context 'when 10 games exist' do
@@ -26,17 +32,17 @@ RSpec.describe 'Api::V1::Games', type: :request do
 
           expect(json).to be_a(Array)
           expect(json.length).to eq(games_count)
-          expect(json).to eq(games.as_json)
+          expect(unsymbolized_json).to eq(games.as_json)
         end
 
-        it { is_expected_block.to have_http_status(200) }
+        it { is_expected_response.to have_http_status(200) }
       end
     end
 
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
-        it { is_expected_block.to have_http_status(401) }
+        it { is_expected_response.to have_http_status(401) }
       end
     end
   end
@@ -45,7 +51,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
     let!(:game) { create(:game) }
     let(:game_id) { game.id }
 
-    subject { get api_v1_games_url(game_id), headers: }
+    subject { get api_v1_game_url(game_id), headers: }
 
     context 'Correct - 200' do
       context 'when game exists' do
@@ -64,14 +70,14 @@ RSpec.describe 'Api::V1::Games', type: :request do
           expect(json[:match_id]).to eq(game.match_id)
         end
 
-        it { is_expected_block.to have_http_status(200) }
+        it { is_expected_response.to have_http_status(200) }
       end
     end
 
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
-        it { is_expected_block.to have_http_status(401) }
+        it { is_expected_response.to have_http_status(401) }
       end
     end
 
@@ -79,7 +85,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
       context 'when specified game does not exist' do
         let(:game_id) { -1 }
 
-        it { is_expected_block.to have_http_status(404) }
+        it { is_expected_response.to have_http_status(404) }
       end
     end
   end
@@ -91,7 +97,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
     let(:east_id) { members.first.id }
     let(:south_id) { members.second.id }
     let(:west_id) { members.third.id }
-    let(:north_id) { members.forth.id }
+    let(:north_id) { members.fourth.id }
     let(:east_score) { Faker::Number.rand_in_range(score_min, score_max) }
     let(:south_score) { Faker::Number.rand_in_range(score_min, score_max) }
     let(:west_score) { Faker::Number.rand_in_range(score_min, score_max) }
@@ -109,10 +115,10 @@ RSpec.describe 'Api::V1::Games', type: :request do
         west_score:,
         north_score:,
         match_id:
-      }
+      }.to_json
     end
 
-    subject { post api_v1_games_url, params: }
+    subject { post api_v1_games_url, headers:, params: }
 
     context 'Correct - 201' do
       context 'when request with valid params' do
@@ -130,7 +136,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
           expect(json[:match_id]).to eq(match_id)
         end
 
-        it { is_expected_block.to have_http_status(201) }
+        it { is_expected_response.to have_http_status(201) }
       end
 
       context 'when request for sanma' do
@@ -151,14 +157,14 @@ RSpec.describe 'Api::V1::Games', type: :request do
           expect(json[:match_id]).to eq(match_id)
         end
 
-        it { is_expected_block.to have_http_status(201) }
+        it { is_expected_response.to have_http_status(201) }
       end
     end
 
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
-        it { is_expected_block.to have_http_status(401) }
+        it { is_expected_response.to have_http_status(401) }
       end
     end
 
@@ -166,37 +172,37 @@ RSpec.describe 'Api::V1::Games', type: :request do
       context 'when east_id does not specified' do
         let(:east_id) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when south_id does not specified' do
         let(:south_id) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when west_id does not specified' do
         let(:west_id) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when east_score does not specified' do
         let(:east_score) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when south_score does not specified' do
         let(:south_score) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when west_score does not specified' do
         let(:west_score) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
     end
   end
@@ -207,11 +213,13 @@ RSpec.describe 'Api::V1::Games', type: :request do
     let(:game_id) { game.id }
 
     # updated game
+    let(:score_min) { 0 }
+    let(:score_max) { 50_000 }
     let(:members) { create_list(:member, 4) }
     let(:east_id) { members.first.id }
     let(:south_id) { members.second.id }
     let(:west_id) { members.third.id }
-    let(:north_id) { members.forth.id }
+    let(:north_id) { members.fourth.id }
     let(:east_score) { Faker::Number.rand_in_range(score_min, score_max) }
     let(:south_score) { Faker::Number.rand_in_range(score_min, score_max) }
     let(:west_score) { Faker::Number.rand_in_range(score_min, score_max) }
@@ -228,10 +236,10 @@ RSpec.describe 'Api::V1::Games', type: :request do
         west_score:,
         north_score:,
         match_id:
-      }
+      }.to_json
     end
 
-    subject { put api_v1_games_url(game_id), params: }
+    subject { put api_v1_game_url(game_id), headers:, params: }
 
     context 'Correct - 200' do
       context 'when request with valid params' do
@@ -249,7 +257,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
           expect(json[:match_id]).to eq(match_id)
         end
 
-        it { is_expected_block.to have_http_status(200) }
+        it { is_expected_response.to have_http_status(200) }
       end
 
       context 'when request for sanma' do
@@ -270,14 +278,14 @@ RSpec.describe 'Api::V1::Games', type: :request do
           expect(json[:match_id]).to eq(match_id)
         end
 
-        it { is_expected_block.to have_http_status(200) }
+        it { is_expected_response.to have_http_status(200) }
       end
     end
 
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
-        it { is_expected_block.to have_http_status(401) }
+        it { is_expected_response.to have_http_status(401) }
       end
     end
 
@@ -285,37 +293,37 @@ RSpec.describe 'Api::V1::Games', type: :request do
       context 'when east_id does not specified' do
         let(:east_id) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when south_id does not specified' do
         let(:south_id) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when west_id does not specified' do
         let(:west_id) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when east_score does not specified' do
         let(:east_score) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when south_score does not specified' do
         let(:south_score) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
 
       context 'when west_score does not specified' do
         let(:west_score) { nil }
 
-        it { is_expected_block.to have_http_status(422) }
+        it { is_expected_response.to have_http_status(422) }
       end
     end
   end
@@ -324,16 +332,18 @@ RSpec.describe 'Api::V1::Games', type: :request do
     let!(:game) { create(:game) }
     let(:game_id) { game.id }
 
+    subject { delete api_v1_game_url(game_id), headers: }
+
     context 'Correct - 200' do
       context 'when specified game exists' do
-        it { is_expected_block.to have_http_status(200) }
+        it { is_expected_response.to have_http_status(204) }
       end
     end
 
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
-        it { is_expected_block.to have_http_status(401) }
+        it { is_expected_response.to have_http_status(401) }
       end
     end
   end
