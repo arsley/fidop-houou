@@ -49,6 +49,6 @@ class Api::V1::JansousController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def jansou_params
-    params.require(:jansou).permit(:name, :google_map_url, :address, :note)
+    params.permit(:name, :google_map_url, :address, :note)
   end
 end

@@ -88,7 +88,7 @@ RSpec.describe 'Api::V1::Jansous', type: :request do
     let(:name) { Faker::Name.name }
     let(:google_map_url) { Faker::Internet.url }
     let(:address) { Faker::Address.full_address }
-    let(:note) { Faker::String.random }
+    let(:note) { Faker::Lorem.sentence }
     let(:params) do
       { name:, google_map_url:, address:, note: }.to_json
     end
@@ -133,7 +133,7 @@ RSpec.describe 'Api::V1::Jansous', type: :request do
     let(:name) { Faker::Name.name }
     let(:google_map_url) { Faker::Internet.url }
     let(:address) { Faker::Address.full_address }
-    let(:note) { Faker::String.random }
+    let(:note) { Faker::Lorem.sentence }
     let(:params) do
       { name:, google_map_url:, address:, note: }.to_json
     end
