@@ -1,6 +1,6 @@
 RSpec.describe 'Api::V1::Administrators', type: :request do
-  let!(:administrator) { create(:administrator) }
-  let!(:token) { administrator.create_access_token!.to_jwt }
+  let(:administrator) { create(:administrator) }
+  let(:token) { administrator.create_access_token!.to_jwt }
   let(:headers) do
     {
       Authorization: "Bearer #{token}",
@@ -13,26 +13,17 @@ RSpec.describe 'Api::V1::Administrators', type: :request do
     subject { get api_v1_administrators_url, headers: }
 
     context 'Correct - 200' do
-      context 'when no administrators exist' do
-        it 'returns empty array response' do
-          subject
-          expect(json).to be_a(Array)
-          expect(json.length).to eq(0)
-        end
-
-        it { is_expected_response.to have_http_status(200) }
-      end
-
       context 'when 10 administrators exist' do
         let(:administrators_count) { 10 }
         let!(:administrators) { create_list(:administrator, administrators_count) }
+        let(:administrator) { administrators.first }
 
         it 'returns response that array of administrators' do
           subject
 
           expect(json).to be_a(Array)
           expect(json.length).to eq(administrators_count)
-          expect(unsymbolized_json).to eq(administrators.as_json)
+          expect(unsymbolized_json).to eq(administrators.as_json(except: :password_digest))
         end
 
         it { is_expected_response.to have_http_status(200) }
@@ -58,8 +49,8 @@ RSpec.describe 'Api::V1::Administrators', type: :request do
         it 'returns response for administrator' do
           subject
 
-          expect(json[:name]).to eq(administrator.name)
-          expect(json[:discord_id]).to eq(administrator.discord_id)
+          expect(json[:id]).to eq(administrator.id)
+          expect(json[:userid]).to eq(administrator.userid)
         end
 
         it { is_expected_response.to have_http_status(200) }
@@ -83,10 +74,10 @@ RSpec.describe 'Api::V1::Administrators', type: :request do
   end
 
   describe 'POST /api/v1/administrators' do
-    let(:name) { Faker::Name.name }
-    let(:discord_id) { Faker::Number.number(digits: 18).to_s }
+    let(:userid) { Faker::Name.name }
+    let(:password) { Faker::Internet.password }
     let(:params) do
-      { name:, discord_id: }.to_json
+      { userid:, password:, password_confirmation: password }.to_json
     end
 
     subject { post api_v1_administrators_url, headers:, params: }
@@ -96,8 +87,8 @@ RSpec.describe 'Api::V1::Administrators', type: :request do
         it 'returns created resource' do
           subject
 
-          expect(json[:name]).to eq(name)
-          expect(json[:discord_id]).to eq(discord_id)
+          expect(json[:id]).not_to be_nil
+          expect(json[:userid]).to eq(userid)
         end
 
         it { is_expected_response.to have_http_status(201) }
@@ -112,8 +103,8 @@ RSpec.describe 'Api::V1::Administrators', type: :request do
     end
 
     context 'Illegal - 422' do
-      context 'when name does not specified' do
-        let(:name) { nil }
+      context 'when userid does not specified' do
+        let(:userid) { nil }
 
         it { is_expected_response.to have_http_status(422) }
       end
@@ -124,10 +115,10 @@ RSpec.describe 'Api::V1::Administrators', type: :request do
     let!(:administrator) { create(:administrator) }
     let(:administrator_id) { administrator.id }
 
-    let(:name) { Faker::Name.name }
-    let(:discord_id) { Faker::Number.number(digits: 18).to_s }
+    let(:userid) { Faker::Name.name }
+    let(:password) { Faker::Internet.password }
     let(:params) do
-      { name:, discord_id: }.to_json
+      { userid:, password:, password_confirmation: password }.to_json
     end
 
     subject { put api_v1_administrator_url(administrator_id), headers:, params: }
@@ -137,8 +128,8 @@ RSpec.describe 'Api::V1::Administrators', type: :request do
         it 'returns updated resource' do
           subject
 
-          expect(json[:name]).to eq(name)
-          expect(json[:discord_id]).to eq(discord_id)
+          expect(json[:id]).not_to be_nil
+          expect(json[:userid]).to eq(userid)
         end
 
         it { is_expected_response.to have_http_status(200) }
@@ -153,8 +144,8 @@ RSpec.describe 'Api::V1::Administrators', type: :request do
     end
 
     context 'Illegal - 422' do
-      context 'when name does not specified' do
-        let(:name) { nil }
+      context 'when userid does not specified' do
+        let(:userid) { nil }
 
         it { is_expected_response.to have_http_status(422) }
       end
