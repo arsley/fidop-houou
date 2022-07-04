@@ -2,7 +2,7 @@
 #
 # Table name: access_tokens
 #
-#  id               :bigint           not null, primary key
+#  id               :uuid             not null, primary key
 #  auth_token       :string
 #  token            :string
 #  created_at       :datetime         not null

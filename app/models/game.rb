@@ -2,7 +2,7 @@
 #
 # Table name: games
 #
-#  id          :bigint           not null, primary key
+#  id          :uuid             not null, primary key
 #  east_score  :integer          not null
 #  north_score :integer
 #  south_score :integer          not null
@@ -10,7 +10,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  east_id     :uuid             not null
-#  match_id    :bigint           not null
+#  match_id    :uuid             not null
 #  north_id    :uuid
 #  south_id    :uuid             not null
 #  west_id     :uuid             not null

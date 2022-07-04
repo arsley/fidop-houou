@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_015225) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "access_tokens", force: :cascade do |t|
+  create_table "access_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "token"
     t.string "auth_token"
     t.datetime "created_at", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_015225) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "games", force: :cascade do |t|
+  create_table "games", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "east_id", null: false
     t.uuid "south_id", null: false
     t.uuid "west_id", null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_015225) do
     t.integer "south_score", null: false
     t.integer "west_score", null: false
     t.integer "north_score"
-    t.bigint "match_id", null: false
+    t.uuid "match_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["east_id"], name: "index_games_on_east_id"
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_015225) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "matches", force: :cascade do |t|
+  create_table "matches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
