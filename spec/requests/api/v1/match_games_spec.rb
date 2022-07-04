@@ -1,4 +1,4 @@
-RSpec.describe 'Api::V1::Games', type: :request do
+RSpec.describe 'Api::V1::MatchGames', type: :request do
   let!(:administrator) { create(:administrator) }
   let!(:token) { administrator.create_access_token!.to_jwt }
   let(:headers) do
@@ -9,8 +9,11 @@ RSpec.describe 'Api::V1::Games', type: :request do
     }
   end
 
-  describe 'GET /api/v1/games' do
-    subject { get api_v1_games_url, headers: }
+  describe 'GET /api/v1/matches/:match_id/games' do
+    let!(:match) { create(:match) }
+    let(:match_id) { match.id }
+
+    subject { get api_v1_match_games_url(match_id), headers: }
 
     context 'Correct - 200' do
       context 'when no games exist' do
@@ -25,7 +28,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
 
       context 'when 10 games exist' do
         let(:games_count) { 10 }
-        let!(:games) { create_list(:game, games_count) }
+        let!(:games) { create_list(:game, games_count, match:) }
 
         it 'returns response that array of games' do
           subject
@@ -39,6 +42,14 @@ RSpec.describe 'Api::V1::Games', type: :request do
       end
     end
 
+    context 'Illegal - 404' do
+      context 'when specified match does not exist' do
+        let(:match_id) { 'invalid' }
+
+        it { is_expected_response.to have_http_status(404) }
+      end
+    end
+
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
@@ -47,12 +58,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
     end
   end
 
-  describe 'PATCH/PUT /api/v1/games/:id' do
-    # create saved game
-    let!(:game) { create(:game) }
-    let(:game_id) { game.id }
-
-    # updated game
+  describe 'POST /api/v1/matches/:match_id/games' do
     let(:score_min) { 0 }
     let(:score_max) { 50_000 }
     let(:members) { create_list(:member, 4) }
@@ -64,7 +70,8 @@ RSpec.describe 'Api::V1::Games', type: :request do
     let(:south_score) { Faker::Number.rand_in_range(score_min, score_max) }
     let(:west_score) { Faker::Number.rand_in_range(score_min, score_max) }
     let(:north_score) { Faker::Number.rand_in_range(score_min, score_max) }
-    let(:match_id) { game.match.id }
+    let(:match) { create(:match) }
+    let(:match_id) { match.id }
     let(:params) do
       {
         east_id:,
@@ -79,11 +86,11 @@ RSpec.describe 'Api::V1::Games', type: :request do
       }.to_json
     end
 
-    subject { put api_v1_game_url(game_id), headers:, params: }
+    subject { post api_v1_match_games_url(match_id), headers:, params: }
 
-    context 'Correct - 200' do
+    context 'Correct - 201' do
       context 'when request with valid params' do
-        it 'returns updated resource' do
+        it 'returns created resource' do
           subject
 
           expect(json[:east_id]).to eq(east_id)
@@ -97,14 +104,14 @@ RSpec.describe 'Api::V1::Games', type: :request do
           expect(json[:match_id]).to eq(match_id)
         end
 
-        it { is_expected_response.to have_http_status(200) }
+        it { is_expected_response.to have_http_status(201) }
       end
 
       context 'when request for sanma' do
         let(:north_id) { nil }
         let(:north_score) { nil }
 
-        it 'returns updated resource' do
+        it 'returns created resource' do
           subject
 
           expect(json[:east_id]).to eq(east_id)
@@ -118,7 +125,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
           expect(json[:match_id]).to eq(match_id)
         end
 
-        it { is_expected_response.to have_http_status(200) }
+        it { is_expected_response.to have_http_status(201) }
       end
     end
 
@@ -164,26 +171,6 @@ RSpec.describe 'Api::V1::Games', type: :request do
         let(:west_score) { nil }
 
         it { is_expected_response.to have_http_status(422) }
-      end
-    end
-  end
-
-  describe 'DELETE /api/v1/games/:id' do
-    let!(:game) { create(:game) }
-    let(:game_id) { game.id }
-
-    subject { delete api_v1_game_url(game_id), headers: }
-
-    context 'Correct - 200' do
-      context 'when specified game exists' do
-        it { is_expected_response.to have_http_status(204) }
-      end
-    end
-
-    context 'Illegal - 401' do
-      context 'when no token specified' do
-        let(:token) { '' }
-        it { is_expected_response.to have_http_status(401) }
       end
     end
   end
