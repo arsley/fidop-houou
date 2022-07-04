@@ -1,5 +1,5 @@
 class Api::V1::GamesController < ApplicationController
-  before_action :set_game, only: %i[show update destroy]
+  before_action :set_game, only: %i[update destroy]
 
   # GET /games
   # GET /games.json
@@ -7,27 +7,11 @@ class Api::V1::GamesController < ApplicationController
     @games = Game.all
   end
 
-  # GET /games/1
-  # GET /games/1.json
-  def show; end
-
-  # POST /games
-  # POST /games.json
-  def create
-    @game = Game.new(game_params)
-
-    if @game.save
-      render :show, status: :created, location: api_v1_game_url(@game)
-    else
-      render json: @game.errors, status: :unprocessable_entity
-    end
-  end
-
   # PATCH/PUT /games/1
   # PATCH/PUT /games/1.json
   def update
     if @game.update(game_params)
-      render :show, status: :ok, location: api_v1_game_url(@game)
+      render :show, status: :ok
     else
       render json: @game.errors, status: :unprocessable_entity
     end
