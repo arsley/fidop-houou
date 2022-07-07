@@ -125,6 +125,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
+
         it { is_expected_response.to have_http_status(401) }
       end
     end
@@ -183,6 +184,7 @@ RSpec.describe 'Api::V1::Games', type: :request do
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
+
         it { is_expected_response.to have_http_status(401) }
       end
     end

@@ -16,6 +16,7 @@ RSpec.describe 'Api::V1::Matches', type: :request do
       context 'when no matches exist' do
         it 'returns empty array response' do
           subject
+
           expect(json).to be_a(Array)
           expect(json.length).to eq(0)
         end
@@ -42,6 +43,7 @@ RSpec.describe 'Api::V1::Matches', type: :request do
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
+
         it { is_expected_response.to have_http_status(401) }
       end
     end
@@ -69,6 +71,7 @@ RSpec.describe 'Api::V1::Matches', type: :request do
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
+
         it { is_expected_response.to have_http_status(401) }
       end
     end
@@ -108,6 +111,7 @@ RSpec.describe 'Api::V1::Matches', type: :request do
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
+
         it { is_expected_response.to have_http_status(401) }
       end
     end
@@ -156,6 +160,7 @@ RSpec.describe 'Api::V1::Matches', type: :request do
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
+
         it { is_expected_response.to have_http_status(401) }
       end
     end
@@ -190,6 +195,7 @@ RSpec.describe 'Api::V1::Matches', type: :request do
     context 'Illegal - 401' do
       context 'when no token specified' do
         let(:token) { '' }
+
         it { is_expected_response.to have_http_status(401) }
       end
     end
