@@ -29,6 +29,9 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Create .env
+        run: cp .env.sample .env
+
       - name: Assert migration successful
         run: bundle exec rails db:create db:migrate
 
