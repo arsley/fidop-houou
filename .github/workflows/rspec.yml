@@ -8,6 +8,7 @@ on:
 jobs:
   rspec:
     runs-on: ubuntu-latest
+    environment: gh-action-test
 
     services:
       pg:
