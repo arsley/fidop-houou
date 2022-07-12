@@ -8,7 +8,6 @@ on:
 jobs:
   rspec:
     runs-on: ubuntu-latest
-    environment: gh-action-test
 
     services:
       pg:
@@ -37,4 +36,6 @@ jobs:
         run: RAILS_ENV=test bundle exec rails db:create db:migrate
 
       - name: Run RSpec
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: RAILS_ENV=test bundle exec rspec
