@@ -32,8 +32,8 @@ jobs:
       - name: Create .env
         run: cp .env.sample .env
 
-      - name: Assert migration successful
-        run: bundle exec rails db:create db:migrate
+      - name: Assert migration successful for test
+        run: RAILS_ENV=test bundle exec rails db:create db:migrate
 
       - name: Run RSpec
         run: RAILS_ENV=test bundle exec rspec
